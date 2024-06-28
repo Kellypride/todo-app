@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { GiBoltEye } from "react-icons/gi";
+import { GoEyeClosed } from "react-icons/go";
 
 const styles = {
   inputField: {
@@ -17,7 +19,12 @@ const styles = {
 };
 
 const Input = (props) => {
-  const [focused, setFocus] = useState(false);
+  const [focus, setFocus] = useState(false);
+  const [inputType, setInputType] = useState("false");
+
+  const toggleInputType = () => {
+    setInputType(!inputType);
+  };
 
   return (
     <div
@@ -26,20 +33,28 @@ const Input = (props) => {
         props.iconPosition === "left"
           ? "flex-row-reverse [&>input]:text-right"
           : "flex-row"
-      } ${
-        focused ? "border-2 border-cyan-100" : "border-2 border-transparent"
-      }`}
+      } ${focus ? "border-2 border-cyan-100" : "border-2 border-transparent"}`}
     >
       <input
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         style={styles.inputField}
-        type={props.type}
+        type={inputType ? "text" : "password"}
         placeholder={props.placeholder}
         onChange={props.onChange}
         className="focus:outline-none bg-transparent"
+        name={props.name}
+        value={props.value}
       />
-      {props.icon}
+      {props.icon && (
+        <button type="button" onClick={toggleInputType}>
+          {inputType ? (
+            <GiBoltEye color={"#cbd5e1"} /> // Visible password icon
+          ) : (
+            <GoEyeClosed color={"#cbd5e1"} /> // Closed eye icon
+          )}
+        </button>
+      )}
     </div>
   );
 };
