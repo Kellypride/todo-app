@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { collection,  getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import db from "./firebase";
-// import SignIn from "./pages/signin";
-import SignUp from "./pages/signup";
+import SignIn from "./pages/signin";
+// import SignUp from "./pages/signup";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -23,8 +23,8 @@ function App() {
 
   return (
     <div className="px-4 py-8 lg:px-8 lg:py-12 object--top text-white bg-slate-950 h-screen w-screen ">
-      {/* <SignIn /> */}
-      <SignUp />
+      <SignIn />
+      {/* <SignUp /> */}
     </div>
   );
 }
