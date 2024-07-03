@@ -53,7 +53,10 @@ const SignIn = () => {
           className=" rounded-lg h-60 w-60 border-2 object-fit object-center border-cyan-200"
         />
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-32">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-32 bg-slate-950"
+      >
         <div className="flex flex-col gap-3">
           <div className=" flex flex-col py-4 gap-4">
             <Input
