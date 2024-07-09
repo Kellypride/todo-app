@@ -16,7 +16,7 @@ const HomePage = () => {
       .then((snapshot) => {
         const tasks = [];
         snapshot.docs.forEach((doc) => {
-          tasks.push(doc.data());
+          tasks.push({ ...doc.data(), id: doc.id });
         });
         setTasks(tasks);
       })
@@ -42,10 +42,17 @@ const HomePage = () => {
         <Calendar day="Fri" date="15" />
         <Calendar day="Sat" date="16" />
       </div>
-      <h3 className="font-bold text-xl">Today's Tasks</h3>
+      <div className=" flex ">
+        <h3 className="font-bold text-xl">Today's Tasks</h3>
+        <Button
+          text="Add Task"
+          className="py-4 px-4 bg-cyan-400 text-gray-800 rounded-full"
+        />
+      </div>
       {tasks.map((task, key) => (
         <Card
           key={key} // Use the task ID for a unique key
+          id={task.id}
           priority={task.priority}
           status={task.status} // Pass the background color prop
           taskTitle={task.title}
@@ -54,10 +61,6 @@ const HomePage = () => {
           hours={task.estimated_hours}
         />
       ))}
-      <Button
-        text="Add Task"
-        className="py-4 px-4 bg-cyan-400 text-gray-800 rounded-full"
-      />
     </div>
   );
 };

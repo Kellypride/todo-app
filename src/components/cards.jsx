@@ -5,6 +5,8 @@ import { FaExclamation } from "react-icons/fa";
 import { LuAlarmClock } from "react-icons/lu";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import Status from "./status";
+import db from "../firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const Card = (props) => {
   const [showPopupMenu, setShowPopupMenu] = useState(false); // State for status visibility
@@ -13,7 +15,7 @@ const Card = (props) => {
 
   const priorityColorMap = {
     high: "#fff",
-    medium: "#FD7E14",
+    medium: "#7dd3fc",
     low: "#FFC107",
   };
 
@@ -27,10 +29,20 @@ const Card = (props) => {
     setShowPopupMenu(!showPopupMenu);
   };
 
-  const handleStatusChange = (newStatus) => {
+  const handleStatusChange = async (newStatus) => {
     setSelectedStatus(newStatus);
+
+    // Update status in Firestore
+    try {
+      const docRef = doc(db, "tasks/" + props.id);
+      await updateDoc(docRef, {
+        status: newStatus,
+      });
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
   };
-  
+
   return (
     <div style={cardField} className={props.className}>
       <div className="flex justify-between items-center w-full ">
