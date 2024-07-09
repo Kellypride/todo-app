@@ -1,23 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { GiProgression } from "react-icons/gi";
 import { FaCheck } from "react-icons/fa";
 import { FaExclamation } from "react-icons/fa";
 import { LuAlarmClock } from "react-icons/lu";
 import { IoCalendarNumberOutline } from "react-icons/io5";
+import Status from "./status";
 
 const Card = (props) => {
+  const [showPopupMenu, setShowPopupMenu] = useState(false); // State for status visibility
+
+  const [selectedStatus, setSelectedStatus] = useState(props.status); //state for update status
+
   const priorityColorMap = {
-    high: "#fff", // White for high priority
-    medium: "#FD7E14", // Orange for medium priority
-    low: "#FFC107", // Green for low priority (assuming "in progress")
+    high: "#fff",
+    medium: "#FD7E14",
+    low: "#FFC107",
   };
 
   const statusIconMap = {
-    completed: <FaCheck />, // Checkmark for completed
-    pending: <FaExclamation />, // Exclamation for pending
-    inProgress: <GiProgression />, // Construction sign for in progress
+    completed: <FaCheck />,
+    pending: <FaExclamation />,
+    inProgress: <GiProgression />,
   };
 
+  const togglePopupMenu = () => {
+    setShowPopupMenu(!showPopupMenu);
+  };
+
+  const handleStatusChange = (newStatus) => {
+    setSelectedStatus(newStatus);
+  };
+  
   return (
     <div style={cardField} className={props.className}>
       <div className="flex justify-between items-center w-full ">
@@ -30,15 +43,23 @@ const Card = (props) => {
         >
           {props.priority}
         </span>
-        <span
-          className="rounded-full p-2"
-          style={{
-            backgroundColor: "#403E3E",
-            color: priorityColorMap[props.priority],
-          }}
-        >
-          {props.status ? statusIconMap.completed : statusIconMap.pending}
-        </span>
+        <div className="relative max-w-fit flex flex-col items-end bg-transparent">
+          <button
+            className="rounded-full p-2"
+            style={{
+              backgroundColor: "#403E3E",
+              color: priorityColorMap[props.priority],
+            }}
+            onClick={togglePopupMenu}
+          >
+            {statusIconMap[selectedStatus]}
+          </button>
+          {showPopupMenu && (
+            <div className="absolute top-full z-50">
+              <Status onSelect={handleStatusChange} selected={props.status} />
+            </div>
+          )}
+        </div>
       </div>
       <p>{props.taskTitle}</p>
       <div className="flex justify-between items-center w-full  ">
@@ -46,7 +67,7 @@ const Card = (props) => {
           <span>
             <IoCalendarNumberOutline />
           </span>
-          <span> {props.day} </span>
+          <span> {props.date} </span>
         </div>
         <div className="flex justify-between gap-2 font-light text-xs">
           <span>

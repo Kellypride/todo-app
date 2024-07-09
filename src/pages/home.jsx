@@ -5,6 +5,7 @@ import Header from "../components/header";
 import Button from "../components/button";
 import db from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { getShortDateFromDateString } from "../utils/get_short_date_from_date_string";
 
 const HomePage = () => {
   const [tasks, setTasks] = useState([]);
@@ -30,10 +31,8 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col gap-4 font-roboto">
-      <h3 className="font-bold text-2xl">Boost your productivity</h3>
-
       <Header />
-      <h3 className="font-bold text-xl">Today's Tasks</h3>
+      <h3 className="font-bold text-2xl">Boost your productivity</h3>
       <div className="flex flex-wrap gap-4">
         <Calendar day="Sun" date="10" className="!bg-cyan-400 !text-black" />
         <Calendar day="Mon" date="11" />
@@ -43,14 +42,16 @@ const HomePage = () => {
         <Calendar day="Fri" date="15" />
         <Calendar day="Sat" date="16" />
       </div>
+      <h3 className="font-bold text-xl">Today's Tasks</h3>
       {tasks.map((task, key) => (
         <Card
           key={key} // Use the task ID for a unique key
           priority={task.priority}
           status={task.status} // Pass the background color prop
           taskTitle={task.title}
-          day={task.day}
-          hours={task.hours}
+          // Calculate formatted date outside JSX
+          date={getShortDateFromDateString(task.due_date)}
+          hours={task.estimated_hours}
         />
       ))}
       <Button

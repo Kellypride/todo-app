@@ -6,6 +6,7 @@ import db from "./firebase";
 // import Calendar from "./components/calendar";
 // import Card from "./components/cards";
 import HomePage from "./pages/home";
+import Status from "./components/status";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -25,7 +26,7 @@ function App() {
   }, []);
 
   return (
-    <div className="px-4 py-8 lg:px-8 lg:py-12 object--top text-white bg-slate-950 h-screen w-screen ">
+    <div className="px-4 py-8 lg:px-8 lg:py-12 object--top text-white bg-slate-950 min-h-screen min-w-screen ">
       {/* <SignIn /> */}
       {/* <SignUp /> */}
       {/* <Calendar day="Sun" date="10" className="!bg-cyan-200  !text-gray-800" /> */}
