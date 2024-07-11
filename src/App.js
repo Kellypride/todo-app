@@ -5,9 +5,8 @@ import db from "./firebase";
 // import SignUp from "./pages/signup";
 // import Calendar from "./components/calendar";
 // import Card from "./components/cards";
-import HomePage from "./pages/home";
-import Status from "./components/status";
-
+// import HomePage from "./pages/home";
+import AddTask from "./pages/add_task";
 function App() {
   const [users, setUsers] = useState([]);
 
@@ -31,7 +30,8 @@ function App() {
       {/* <SignUp /> */}
       {/* <Calendar day="Sun" date="10" className="!bg-cyan-200  !text-gray-800" /> */}
       {/* <Calendar day="Sun" date="10" /> */}
-      <HomePage />
+      {/* <HomePage /> */}
+      <AddTask />
     </div>
   );
 }

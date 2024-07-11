@@ -33,7 +33,7 @@ const HomePage = () => {
     <div className="flex flex-col gap-4 font-roboto">
       <Header />
       <h3 className="font-bold text-2xl">Boost your productivity</h3>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-2">
         <Calendar day="Sun" date="10" className="!bg-cyan-400 !text-black" />
         <Calendar day="Mon" date="11" />
         <Calendar day="Tue" date="12" />
@@ -42,11 +42,11 @@ const HomePage = () => {
         <Calendar day="Fri" date="15" />
         <Calendar day="Sat" date="16" />
       </div>
-      <div className=" flex ">
+      <div className=" flex justify-between items-center">
         <h3 className="font-bold text-xl">Today's Tasks</h3>
         <Button
           text="Add Task"
-          className="py-4 px-4 bg-cyan-400 text-gray-800 rounded-full"
+          className="py-2 px-2 bg-cyan-400 text-gray-800 rounded-lg"
         />
       </div>
       {tasks.map((task, key) => (
@@ -61,6 +61,11 @@ const HomePage = () => {
           hours={task.estimated_hours}
         />
       ))}
+
+      <Button
+        text="Add Task"
+        className="py-4 px-4 bg-cyan-400 text-gray-800 rounded-full"
+      />
     </div>
   );
 };

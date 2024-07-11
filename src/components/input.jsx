@@ -39,14 +39,14 @@ const Input = (props) => {
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         style={styles.inputField}
-        type={inputType ? "text" : "password"}
+        type={props.type ?? "text"}
         placeholder={props.placeholder}
         onChange={props.onChange}
-        className="focus:outline-none bg-transparent"
+        className="focus:outline-none !text-white bg-transparent"
         name={props.name}
-        value={props.value}
+        // value={props.value}
       />
-      {props.icon && (
+      {props.type === "password" && (
         <button type="button" onClick={toggleInputType}>
           {inputType ? (
             <GiBoltEye color={"#cbd5e1"} /> // Visible password icon
